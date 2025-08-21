@@ -1,35 +1,25 @@
-import mysql.connector as mysql
-import datetime
+# from datetime import date
+from db import db, cursor
 from flask import Flask, jsonify, request
 
-bd = mysql.connect(
-    host= 'localhost',
-    user= 'root',
-    password= '123456',
-    port= '3306',
-    database= 'todolist'
-) #conectar ao banco de dados
+app = Flask(__name__)
 
-cursor = bd.cursor() 
-
-cursor.execute('SELECT * FROM tarefas') #executar comandos
-
-resultado = cursor.fetchall()
-print(resultado)
+#consultar (todos)
+@app.route('/tarefas', methods=['GET'])
+def consultar_task():
+    cursor.execute("SELECT * FROM tarefas")
+    todos = cursor.fetchall() #pega todas as linhas do banco
+    return jsonify(todos)    
 
 
-# app = Flask(__name__)
+@app.route('/tarefas', methods=['POST'])
+def adicionar_task():
+    tarefas = request.json # Acessa os dados JSON
+    sql = "INSERT INTO tarefas (titulo, descricao, conclusao) VALUES (%s,%s,%s)"
+    values = (tarefas["titulo"], tarefas["descricao"], False)
+    cursor.execute(sql,values) #consultar o banco de dados (insert into/ valores)
+    db.commit() #salva no banco de dados
+    return jsonify({"message": "Tarefa adicionada!", "id": db.cursor.lastrowid}), 201
 
-# #consultar (todos)
-# @app.route('/tarefas', methods=['GET'])
-# def consultar_task():
-#     return jsonify(tarefas)    
-
-# #consultar (id)
-# def consultar_id_taks(id):
-#     return (tarefas)
-# #editar
-# #excluir
-
-# if __name__ == "__main__":
-#     app.run(port=5000, host="localhost", debug=True)
+if __name__ == "__main__":
+    app.run(port=5000, host="localhost", debug=True)
