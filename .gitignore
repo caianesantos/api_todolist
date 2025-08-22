@@ -2,4 +2,7 @@ links_uteis.txt
 teste.py
 db.py
 criar_task.py
-__pycache__
+status_task.py
+__pycache__/
+*.pyc
+*.pyo
