@@ -6,3 +6,4 @@ status_task.py
 __pycache__/
 *.pyc
 *.pyo
+/teste2
