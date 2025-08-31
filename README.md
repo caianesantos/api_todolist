@@ -50,7 +50,7 @@ pip install -r requirements.txt
 
 ### 3\. Crie e Configure o Banco de Dados MySQL
 
-**1. Crie o Banco de Dados:** Acesse seu servidor MySQL e crie um novo banco de dados. [cite\_start]O nome `todolist` é recomendado para seguir o padrão do projeto. [cite: 1]
+**1. Crie o Banco de Dados:** Acesse seu servidor MySQL e crie um novo banco de dados. O nome `todolist` é recomendado para seguir o padrão do projeto.
 
 ```sql
 CREATE DATABASE todolist;
@@ -73,7 +73,7 @@ CREATE TABLE tarefas (
 
 **1. Localize o arquivo `db.py`** na raiz do projeto.
 
-**2. Edite o arquivo** com as suas credenciais do MySQL. Substitua os placeholders (`'...'`) pelas suas informações locais.
+**2. Edite o arquivo** com as suas credenciais do MySQL. Manter `charset` e `use_unicode` é uma boa prática para evitar erros com caracteres especiais.
 
 ```python
 # db.py
@@ -84,7 +84,7 @@ try:
         host='localhost',          # Geralmente 'localhost' para ambiente local
         user='seu_usuario_mysql',  # <-- SUBSTITUA PELO SEU USUÁRIO
         password='sua_senha_mysql',# <-- SUBSTITUA PELA SUA SENHA
-        database='todolist'        # O nome do banco de dados criado no passo 3
+        database='todolist',       # O nome do banco de dados criado no passo 3
         charset="utf8mb4",         # Garante suporte a emojis e caracteres especiais
         use_unicode=True           # Garante que o texto seja tratado corretamente
     )
@@ -114,13 +114,13 @@ A seguir, um passo a passo de como testar cada endpoint usando o Postman.
 ### Método POST: Criar uma Nova Tarefa
 
 1.  Abra uma nova requisição no Postman.
-2.  [cite\_start]Mude o método HTTP para **POST**. [cite: 234]
-3.  [cite\_start]Insira a URL do endpoint: `http://localhost:5000/tarefas`. [cite: 233]
+2.  Mude o método HTTP para **POST**.
+3.  Insira a URL do endpoint: `http://localhost:5000/tarefas`.
 4.  Vá para a aba **Headers** e adicione a seguinte chave-valor:
-      * [cite\_start]**Key**: `Content-Type` [cite: 237]
-      * [cite\_start]**Value**: `application/json` [cite: 238]
-5.  [cite\_start]Vá para a aba **Body**, selecione a opção **raw** e mude o formato para **JSON**. [cite: 240, 241]
-6.  [cite\_start]Escreva o corpo da requisição com os dados da tarefa: [cite: 242]
+      * **Key**: `Content-Type`
+      * **Value**: `application/json`
+5.  Vá para a aba **Body**, selecione a opção **raw** e mude o formato para **JSON**.
+6.  Escreva o corpo da requisição com os dados da tarefa:
     ```json
     {
         "titulo": "Aprender a usar o Postman",
@@ -131,37 +131,37 @@ A seguir, um passo a passo de como testar cada endpoint usando o Postman.
 
 ### Método GET: Consultar Tarefas
 
-#### [cite\_start]Consultar todas as tarefas [cite: 153]
+#### Consultar todas as tarefas
 
-1.  [cite\_start]Mude o método HTTP para **GET**. [cite: 156]
-2.  [cite\_start]Insira a URL: `http://localhost:5000/tarefas`. [cite: 155]
+1.  Mude o método HTTP para **GET**.
+2.  Insira a URL: `http://localhost:5000/tarefas`.
 3.  Clique em **Send**.
 
-#### [cite\_start]Consultar por ID [cite: 178]
+#### Consultar por ID
 
-1.  [cite\_start]Mude o método HTTP para **GET**. [cite: 181]
-2.  [cite\_start]Insira a URL, substituindo `<id>` pelo número desejado: `http://localhost:5000/tarefas/<id>`. [cite: 180]
+1.  Mude o método HTTP para **GET**.
+2.  Insira a URL, substituindo `<id>` pelo número desejado: `http://localhost:5000/tarefas/<id>`.
 3.  Clique em **Send**.
 
-#### [cite\_start]Consultar por Título [cite: 190]
+#### Consultar por Título
 
-1.  [cite\_start]Mude o método HTTP para **GET**. [cite: 193]
-2.  [cite\_start]Insira a URL, substituindo `<titulo>` pelo texto desejado: `http://localhost:5000/tarefas/<titulo>`. [cite: 192]
+1.  Mude o método HTTP para **GET**.
+2.  Insira a URL, substituindo `<titulo>` pelo texto desejado: `http://localhost:5000/tarefas/<titulo>`.
 3.  Clique em **Send**.
 
-#### [cite\_start]Consultar por Data [cite: 202, 218]
+#### Consultar por Data
 
-1.  [cite\_start]Mude o método HTTP para **GET**. [cite: 206]
+1.  Mude o método HTTP para **GET**.
 2.  Insira a URL: `http://localhost:5000/tarefas/data`.
-3.  [cite\_start]Vá para a aba **Params** e adicione as seguintes chaves-valor: [cite: 212]
-      * [cite\_start]**Key**: `tipo`, **Value**: `criacao` ou `atualizacao` [cite: 214, 215, 228, 229]
-      * [cite\_start]**Key**: `data`, **Value**: `<AAAA-MM-DD>` (ex: `2025-08-22`) [cite: 216, 217]
+3.  Vá para a aba **Params** e adicione as seguintes chaves-valor:
+      * **Key**: `tipo`, **Value**: `criacao` ou `atualizacao`
+      * **Key**: `data`, **Value**: `<AAAA-MM-DD>` (ex: `2025-08-22`)
 4.  Clique em **Send**.
 
-### [cite\_start]Método PATCH: Atualizar uma Tarefa [cite: 245]
+### Método PATCH: Atualizar uma Tarefa
 
-1.  [cite\_start]Mude o método HTTP para **PATCH**. [cite: 249]
-2.  [cite\_start]Insira a URL, substituindo `<id>`: `http://localhost:5000/tarefas/att/<id>`. [cite: 248]
+1.  Mude o método HTTP para **PATCH**.
+2.  Insira a URL, substituindo `<id>`: `http://localhost:5000/tarefas/att/<id>`.
 3.  **Para atualizar título/descrição:**
       * Vá para a aba **Body**, selecione **raw** e **JSON**.
       * Insira apenas os campos que deseja alterar:
@@ -171,11 +171,11 @@ A seguir, um passo a passo de como testar cada endpoint usando o Postman.
         }
         ```
 4.  **Para marcar como "Concluído":**
-      * [cite\_start]Você pode deixar o corpo da requisição vazio (none). [cite: 250]
+      * Você pode deixar o corpo da requisição vazio (none).
 5.  Clique em **Send**.
 
-### [cite\_start]Método DELETE: Excluir uma Tarefa [cite: 252]
+### Método DELETE: Excluir uma Tarefa
 
-1.  [cite\_start]Mude o método HTTP para **DELETE**. [cite: 256]
-2.  [cite\_start]Insira a URL, substituindo `<id>`: `http://localhost:5000/tarefas/del/<id>`. [cite: 255]
-3.  Clique em **Send**. [cite\_start]O retorno esperado é uma mensagem de sucesso. [cite: 259, 260]
+1.  Mude o método HTTP para **DELETE**.
+2.  Insira a URL, substituindo `<id>`: `http://localhost:5000/tarefas/del/<id>`.
+3.  Clique em **Send**. O retorno esperado é uma mensagem de sucesso.
