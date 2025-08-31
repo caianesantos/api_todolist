@@ -1,46 +1,18 @@
 from datetime import datetime
 from flask import Flask, jsonify, request
-#importa o framework flask, ferramenta jsonify para retornar no formato json, request para (i/o) comunicação entre sistemas
 from db import db, cursor
-
+from erros import *
+from services import *
 
 
 app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False
 
-#--------------------TRATAMENTO DE ERRO----------------------------------
+@app.route('/')
+def pagina_inicial():
+    return "<h1>API TO DO LIST (Defina um endpoint para continuar). </h1>"
 
-@app.errorhandler(400)
-def bad_request(error=None):
-    """
-    Para informar que existem campos inválidos, como:
-        - Tentativa de criar tarefa sem título ou sem parâmetro;
-        - Tipo de data inválido;
-    """
-    return jsonify({"Bad Request": "Existem campos inválidos!"}), 400
-
-@app.errorhandler(404)
-def not_found_error(error=None):
-    """
-    Mensagem de erro para informar que uma tarefa não foi encontrada
-    """
-    return jsonify({"Not Found": "Tarefa não encontrada!"}), 404
-
-@app.errorhandler(500)
-def internal_server(error=None):
-    return jsonify({"Internal Server": "Ocorreu um problema no servidor"}), 500
- # capturar possíveis erros de banco de dados
-
-#-----------------------FUNÇÃO AUXILIAR--------------------------------------------
-#Verificar se tarefa existe 
-def buscar_task_id(id):
-    with db.cursor() as cursor:
-        cursor.execute("SELECT * FROM tarefas WHERE id = %s", (id,))
-        tarefa = cursor.fetchone()
-        return tarefa # Retorna o dicionário da tarefa ou None
-    
 #--------------------ROTAS----------------------------------------------
-
 
 #consultar (todos)
 @app.route('/tarefas', methods=['GET'])
